@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue.js Directive</title>
+    <title>vue.js Method</title>
     <style>
         .box{
         background-color: blue;
@@ -24,14 +24,17 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <button @click="changeColor">{{ greetings }}</button>
-        <br>
-        <input type="text" v-model="greetings">
-        <br>
-        <div>{{ count }}</div>
+
+        <button @click="toggleBox">toggle</button>
+        <button @click="addCount">add count</button>
+        <h2>{{ count }}</h2>
+        <hr>
+        <input type="text" @keyup.enter="greet" v-model="greetings">
+        <hr>
         <div class="box" v-if="isVisible"></div>
         <div class="box two" v-else-if="isVisible2"></div>
         <div class="box three" v-else></div>
+
     </div>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -43,7 +46,17 @@
                     isVisible: true,
                     isVisible2: true,
                     count: 0,
-                    changeColor: () => count++ 
+                }
+            },
+            methods: {
+                addCount() {
+                    this.count++;
+                },
+                toggleBox() {
+                    this.isVisible = !this.isVisible
+                },
+                greet() {
+                    console.log(this.greetings)
                 }
             }
         });
